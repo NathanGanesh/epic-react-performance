@@ -2,8 +2,9 @@
 // http://localhost:3000/isolated/exercise/02.js
 
 import * as React from 'react'
-import {useCombobox} from '../use-combobox'
+
 import {getItems} from '../filter-cities'
+import {useCombobox} from '../use-combobox'
 import {useForceRerender} from '../utils'
 
 function Menu({
@@ -59,9 +60,9 @@ function ListItem({
 function App() {
   const forceRerender = useForceRerender()
   const [inputValue, setInputValue] = React.useState('')
-
+  const allItems =React.useMemo(() => getItems(inputValue), [inputValue]);
   // 🐨 wrap getItems in a call to `React.useMemo`
-  const allItems = getItems(inputValue)
+//   const allItems = getItems(inputValue)
   const items = allItems.slice(0, 100)
 
   const {
@@ -85,6 +86,8 @@ function App() {
       ),
     itemToString: item => (item ? item.name : ''),
   })
+
+ 
 
   return (
     <div className="city-app">
